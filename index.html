@@ -20,6 +20,8 @@
 
       var canvas = document.getElementById("myCanvas");
       var ctx = canvas.getContext("2d");
+      ctx.canvas.width  = window.innerWidth;
+      ctx.canvas.height = window.innerHeight;
 
       var randomColor =  Math.floor(Math.random()*16777215).toString(16);
 
@@ -31,9 +33,11 @@
 
       var ballRadius = 1;
       var text = 'Гриша ЛОХ';
-      var textMetrics = ctx.measureText(text);
+      ctx.font = "48px comicSans";
+      const textMetrics = ctx.measureText(text);
 
       function drawBall() {
+        
         ctx.beginPath();
         ctx.arc(x, y, ballRadius, 0, Math.PI*2);
         ctx.fillText("" + text, x, y)
@@ -44,10 +48,6 @@
 
       function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.canvas.width  = window.innerWidth;
-      ctx.canvas.height = window.innerHeight;
-      ctx.font = "48px comicSans";
-      textMetrics = ctx.measureText(text);
       drawBall();
       x += dx;
       y += dy;
@@ -59,7 +59,6 @@
           dy = -dy;
           randomColor =  Math.floor(Math.random()*16777215).toString(16);
       };
-
     }
     setInterval(draw, 9);
       </script>
