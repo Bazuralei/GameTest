@@ -8,12 +8,11 @@
         * { padding: 0; margin: 0; }
         canvas { background: #eee; display: block;} margin: 0 auto; }
       </style>
-
   </head>
 
   <body>
 
-      <canvas id="myCanvas" width="480" height="320">
+      <canvas id="myCanvas">
 
       </canvas>
 
@@ -21,22 +20,27 @@
 
       var canvas = document.getElementById("myCanvas");
       var ctx = canvas.getContext("2d");
+      ctx.canvas.width  = window.innerWidth;
+      ctx.canvas.height = window.innerHeight;
+
+      var randomColor =  Math.floor(Math.random()*16777215).toString(16);
+
 
       let x = canvas.width/2;
       let y = canvas.height-30;
       let dx = 2;
       let dy = -2;
 
-      var ballRadius = 10;
+      var ballRadius = 1;
+      var text = 'Гриша ЛОХ';
+      ctx.font = "48px comicSans";
       const textMetrics = ctx.measureText(text);
-      var text = 'rofl';
 
       function drawBall() {
         ctx.beginPath();
-      //  ctx.arc(x, y, ballRadius, 0, Math.PI*2);
-        ctx.fillStyle = "#0095DD"
-        ctx.font = "48px comicSans";
+        ctx.arc(x, y, ballRadius, 0, Math.PI*2);
         ctx.fillText("" + text, x, y)
+        ctx.fillStyle = "#" +randomColor;
         console.log(textMetrics.width);
         ctx.closePath();
       }
@@ -46,14 +50,16 @@
       drawBall();
       x += dx;
       y += dy;
-      if(x + dx > canvas.width - textMetrics.width || x + dx < ballRadius - textMetrics.width) {
+      if(x + dx > canvas.width - textMetrics.width || x + dx < ballRadius) {
           dx = -dx;
+          randomColor =  Math.floor(Math.random()*16777215).toString(16);
       };
       if(y + dy > canvas.height || y + dy < ballRadius) {
           dy = -dy;
+          randomColor =  Math.floor(Math.random()*16777215).toString(16);
       };
     }
-    setInterval(draw, 20);
+    setInterval(draw, 9);
       </script>
   </body>
 </html>
